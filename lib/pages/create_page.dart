@@ -1,6 +1,10 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
+import 'package:http/http.dart';
+import 'package:http/http.dart';
+import 'package:http/http.dart';
 
 import '../model/post_model.dart';
 import '../service/http_service.dart';
@@ -17,6 +21,7 @@ class _CreatePageState extends State<CreatePage> {
   TextEditingController userIdController = TextEditingController();
   TextEditingController titleController = TextEditingController();
   TextEditingController bodyController = TextEditingController();
+  Post response = Post(id: 0, userId: 0, title: "", body: "");
 
   void doCreate() {
     String userId = userIdController.text.trim();
@@ -24,8 +29,10 @@ class _CreatePageState extends State<CreatePage> {
     String body = bodyController.text.trim();
     Post post = Post(userId: int.parse(userId), title: title, body: body);
 
-    Network.POST(Network.API_CREATE, Network.paramsCreate(post)).then((value) => {
-      post = Post.fromJson(jsonDecode(value!)),
+    setState(() {
+      Network.POST(Network.API_CREATE, Network.paramsCreate(post)).then((value) => {
+        response = Post.fromJson(jsonDecode(value!)),
+      });
     });
   }
 
@@ -70,7 +77,7 @@ class _CreatePageState extends State<CreatePage> {
               ),
             ),
             MaterialButton(
-              onPressed: (){},
+              onPressed: doCreate,
               minWidth: double.infinity,
               color: Colors.blue,
               child: const Text("Create", style: TextStyle(color: Colors.white),),
@@ -81,13 +88,13 @@ class _CreatePageState extends State<CreatePage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const SizedBox(height: 10,),
-                Text("ID: ", style: const TextStyle(fontSize: 18),),
+                Text("ID: ${response.id}", style: const TextStyle(fontSize: 18),),
                 const SizedBox(height: 10,),
-                Text("User ID: ", style: const TextStyle(fontSize: 18),),
+                Text("User ID: ${response.userId}", style: const TextStyle(fontSize: 18),),
                 const SizedBox(height: 10,),
-                Text("Title: ", style: const TextStyle(fontSize: 18),),
+                Text("Title: ${response.title}", style: const TextStyle(fontSize: 18),),
                 const SizedBox(height: 10,),
-                Text("Body: ", style: const TextStyle(fontSize: 18),),
+                Text("Body: ${response.body}", style: const TextStyle(fontSize: 18),),
               ],
             ),
           ],

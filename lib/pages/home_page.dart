@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:flutterpatternsetstate/pages/create_page.dart';
 import 'package:flutterpatternsetstate/service/http_service.dart';
 
 import '../model/post_model.dart';
@@ -66,6 +67,12 @@ class _HomePageState extends State<HomePage> {
             },
           )
         ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: (){
+          Navigator.push(context, MaterialPageRoute(builder: (context) => const CreatePage()));
+        },
+        child: const Icon(Icons.add),
       ),
     );
   }
