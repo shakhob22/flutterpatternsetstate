@@ -52,11 +52,18 @@ class _HomePageState extends State<HomePage> {
     super.initState();
   }
 
+  String title = "setState";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("setState"),
+        title: Row(
+          children: [
+            Text(title),
+            Text(title),
+            Text(title),
+          ],
+        ),
       ),
       body: Stack(
         children: [
@@ -70,8 +77,12 @@ class _HomePageState extends State<HomePage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: (){
-          Navigator.push(context, MaterialPageRoute(builder: (context) => const CreatePage()));
+          setState(() {
+            title = "Here we go";
+          });
+          // Navigator.push(context, MaterialPageRoute(builder: (context) => const CreatePage()));
         },
+        tooltip: "+",
         child: const Icon(Icons.add),
       ),
     );

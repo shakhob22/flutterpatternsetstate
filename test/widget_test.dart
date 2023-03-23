@@ -11,20 +11,55 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:flutterpatternsetstate/main.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
+  testWidgets('Test 1', (WidgetTester tester) async {
     // Build our app and trigger a frame.
     await tester.pumpWidget(const MyApp());
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+    expect(find.byType(ListView), findsOneWidget);
+    expect(find.byType(GridView), findsNothing);
 
-    // Tap the '+' icon and trigger a frame.
+  });
+
+  testWidgets('Test 2', (WidgetTester tester) async {
+    // Build our app and trigger a frame.
+    await tester.pumpWidget(const MyApp());
+
+    expect(find.text("setState"), findsOneWidget);
+    expect(find.text("setState"), findsWidgets);
+    expect(find.text("setState"), findsNWidgets(1));
+    expect(find.text("setState"), findsAtLeastNWidgets(3));
+    expect(find.text("GetX"), findsNothing);
+
+  });
+
+  testWidgets('Test 3', (WidgetTester tester) async {
+    // Build our app and trigger a frame.
+    await tester.pumpWidget(const MyApp());
+
+    await tester.tap(find.byTooltip("+"));
+    await tester.pump();
+
+    expect(find.text("Here we go"), findsWidgets);
+  });
+
+  testWidgets('Test 4', (WidgetTester tester) async {
+    // Build our app and trigger a frame.
+    await tester.pumpWidget(const MyApp());
+
     await tester.tap(find.byIcon(Icons.add));
     await tester.pump();
 
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+    expect(find.text("Here we go"), findsWidgets);
   });
+
+  testWidgets('Test 5', (WidgetTester tester) async {
+    // Build our app and trigger a frame.
+    await tester.pumpWidget(const MyApp());
+
+    await tester.tap(find.byType(FloatingActionButton));
+    await tester.pump();
+
+    expect(find.text("Here we go"), findsWidgets);
+  });
+
 }
